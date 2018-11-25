@@ -34,6 +34,15 @@ plot(xx,yy,'-g'); % function
 
 
 % Newton polynomial function
+hold on;
+title('Newton #1');
+for i=1:5
+    xdp1 = dp1(i,1);
+    ydp1 = dp1(i,2);
+    plot(xdp1,ydp1,'ro'); % data points
+end
+newton_polynomial1 = newton_polynomial(dp1(:,1), dp1(:,2)); 
+fplot(newton_polynomial1, [0.6 1])
 
 % Lagrange polynomial function
 hold on;
@@ -78,6 +87,15 @@ end
 plot(xx,yy,'-g'); % function
 
 % Newton polynomial function
+hold on;
+title('Newton #2');
+for i=1:15
+    xdp2 = dp2(i,1);
+    ydp2 = dp2(i,2);
+    plot(xdp2,ydp2,'ro'); % data points
+end
+newton_polynomial2 = newton_polynomial(dp2(:,1), dp2(:,2)); 
+fplot(newton_polynomial2, [-1 1])
 
 % Lagrange polynomial function
 hold on;
@@ -118,6 +136,15 @@ plot(xx,yy,'-g'); % function
 
 
 % Newton polynomial function
+hold on;
+title('Newton #3');
+for i=1:1:10
+    xdp3 = dp3(i,1);
+    ydp3 = dp3(i,2);
+    plot(xdp3,ydp3,'ro'); % data points
+end
+newton_polynomial3 = newton_polynomial(dp3(:,1), dp3(:,2)); 
+fplot(newton_polynomial3, [1994 2003])
 
 % Lagrange polynomial function
 hold on;
@@ -128,5 +155,5 @@ for i=1:1:10
     plot(xdp3,ydp3,'ro'); % data points
 end
 
-lagrange_polynomial2 = lagrange(dp3(:,1), dp3(:,2)); 
-fplot(lagrange_polynomial2, [1994 2003])
+lagrange_polynomial3 = lagrange(dp3(:,1), dp3(:,2)); 
+fplot(lagrange_polynomial3, [1994 2003])
