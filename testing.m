@@ -17,7 +17,7 @@ end
 x = vandermonde(dp1);
 vandermonde_polynomial1 = @(t) x(1) + x(2)*t + x(3)*(t^2) + x(4)*(t^3) + x(5)*(t^4);
 
-subplot(3,2,1);
+subplot(3,3,1);
 hold on;
 title('Vandermonde #1');
 for i=1:5
@@ -34,6 +34,7 @@ plot(xx,yy,'-g'); % function
 
 
 % Newton polynomial function
+subplot(3,3,2);
 hold on;
 title('Newton #1');
 for i=1:5
@@ -45,6 +46,7 @@ newton_polynomial1 = newton_polynomial(dp1(:,1), dp1(:,2));
 fplot(newton_polynomial1, [0.6 1])
 
 % Lagrange polynomial function
+subplot(3,3,3);
 hold on;
 title('Lagrange #1');
 for i=1:5
@@ -71,7 +73,7 @@ end
 x = vandermonde(dp2);
 vandermonde_polynomial2 = @(t) x(1) + x(2)*t + x(3)*(t^2) + x(4)*(t^3) + x(5)*(t^4) + x(6)*(t^5) + x(7)*(t^6) + x(8)*(t^7)+ x(9)*(t^8) + x(10)*(t^9) + x(11)*(t^10) + x(12)*(t^11) + x(13)*(t^12) + x(14)*(t^13) + x(15)*(t^14);
 
-subplot(3,2,3);
+subplot(3,3,4);
 hold on;
 title('Vandermonde #2');
 for i=1:15
@@ -87,6 +89,7 @@ end
 plot(xx,yy,'-g'); % function
 
 % Newton polynomial function
+subplot(3,3,5);
 hold on;
 title('Newton #2');
 for i=1:15
@@ -98,6 +101,7 @@ newton_polynomial2 = newton_polynomial(dp2(:,1), dp2(:,2));
 fplot(newton_polynomial2, [-1 1])
 
 % Lagrange polynomial function
+subplot(3,3,6);
 hold on;
 title('Lagrange #2');
 for i=1:15
@@ -119,7 +123,7 @@ dp3 = [ 1994 67.052; 1995 68.008; 1996 69.803; 1997 72.024; 1998 73.400; 1999 72
 x3 = vandermonde(dp3); % Fix  Error  Error  Error  Error  Error  Error  Error  Error  Error  Error  Error  Error
 vandermonde_polynomial3 = @(t) x3(1) + x3(2)*t + x3(3)*(t^2) + x3(4)*(t^3) + x3(5)*(t^4) + x3(6)*(t^5) + x3(7)*(t^6) + x3(8)*(t^7) + x3(9)*(t^8) + x3(10)*(t^9) ;
 
-subplot(3,2,5);
+subplot(3,3,7);
 hold on;
 title('Vandermonde #3');
 for i=1:1:10
@@ -136,6 +140,7 @@ plot(xx,yy,'-g'); % function
 
 
 % Newton polynomial function
+subplot(3,3,8);
 hold on;
 title('Newton #3');
 for i=1:1:10
@@ -147,6 +152,7 @@ newton_polynomial3 = newton_polynomial(dp3(:,1), dp3(:,2));
 fplot(newton_polynomial3, [1994 2003])
 
 % Lagrange polynomial function
+subplot(3,3,9);
 hold on;
 title('Lagrange #3');
 for i=1:1:10
