@@ -4,7 +4,7 @@ function [full] = lagrange(X,Y)
 % returns full polynomial
 
     num_points = length(X);
-    syms t
+    syms t;
     full = 0;
     for i=1:num_points
         term = 1;
