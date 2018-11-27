@@ -15,7 +15,8 @@ function [x] = vandermonde(dp)
         end
         y(row) = dp(row,2);
     end
-    x = A\y;
+    
+    x = GEPP(A, y); 
     
 end
 
