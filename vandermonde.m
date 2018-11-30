@@ -26,4 +26,3 @@ function [full] = vandermonde(dp)
 end
 
 
-
