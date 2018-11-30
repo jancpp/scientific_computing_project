@@ -18,6 +18,7 @@ function [full] = natural_cs(dp)
     dpi = 1;
     offset=0;
     
+    % cubic equations
     for i=i1:2:in
         if ((jn+offset-1)<= size) 
             j1 = j1+offset;
@@ -45,10 +46,11 @@ function [full] = natural_cs(dp)
     jpp = int*4;
     jn = 8;
     i1 = in+1;
-    newin = in + npoints-2 % middle points
+    newin = in + npoints-2; % middle points
     dpi = 1;
     offset=0;
 
+    % first derivatives
     for i=i1:1:newin
         if ((jn+offset-1)<= size) 
             dpi=dpi+1;
@@ -76,6 +78,7 @@ function [full] = natural_cs(dp)
     dpi = 1;
     offset=0;
 
+    % second derivatives
     for i=i1:1:in
         if ((jn+offset-1)<= size) 
             dpi=dpi+1;
@@ -92,7 +95,24 @@ function [full] = natural_cs(dp)
         end
         offset=4;
     end
+    
+    j1 = 1;
+    jpp = int*4;
+    jn = size;
+    i1 = in+1;
+    in = size;
+    dpi = 1;
+    offset=0;
 
+    % end points (natural spline part)
+
+        A(i1,j1+2)= 2;
+        A(i1,j1+3)= 6*dp(1,1);
+
+        A(i1+1,jn-1)= 2;
+        A(i1+1,jn)= 6*dp(npoints,1);
+    
+    
 A
 dp
 
