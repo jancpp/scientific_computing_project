@@ -44,12 +44,12 @@ function [full] = natural_cs(dp)
     j1 = 1;
     jpp = int*4;
     jn = 8;
-    i1 = 1;
+    i1 = in+1;
     newin = in + npoints-2 % middle points
     dpi = 1;
     offset=0;
 
-    for i=in+1:1:newin
+    for i=i1:1:newin
         if ((jn+offset-1)<= size) 
             dpi=dpi+1;
             j1 = j1+offset;
@@ -68,30 +68,30 @@ function [full] = natural_cs(dp)
         offset=4;
     end
     
-%     j1 = 1;
-%     jpp = int*4;
-%     jn = 8;
-%     i1 = 1;
-%     in = int*2;
-%     dpi = 1;
-%     offset=0;
-% 
-%     for i=in+1:1:size
-%         if ((jn+offset-1)<= size) 
-%             dpi=dpi+1;
-%             j1 = j1+offset;
-%             jn = jn+offset;
-%         end
-%         for j=j1:jpp:jn
-% 
-%             A(i,j+2)= 2*dp(dpi,1);
-%             A(i,j+3)= 6*dp(dpi,1);
-%             
-%             A(i,j+6)= -2*dp(dpi,1);
-%             A(i,j+7)= -6*dp(dpi,1);
-%         end
-%         offset=4;
-%     end
+    j1 = 1;
+    jpp = int*4;
+    jn = 8;
+    i1 = newin+1;
+    in = newin + npoints-2;
+    dpi = 1;
+    offset=0;
+
+    for i=i1:1:in
+        if ((jn+offset-1)<= size) 
+            dpi=dpi+1;
+            j1 = j1+offset;
+            jn = jn+offset;
+        end
+        for j=j1:jpp:jn
+
+            A(i,j+2)= 2;
+            A(i,j+3)= 6*dp(dpi,1);
+            
+            A(i,j+6)= -2;
+            A(i,j+7)= -6*dp(dpi,1);
+        end
+        offset=4;
+    end
 
 A
 dp
