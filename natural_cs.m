@@ -1,24 +1,23 @@
-function [full] = natural_cs(dp)
+function [full_vec] = natural_cs(dp)
 % NATURAL_CS Natural cubic spline
-%   dp - input data points [ (t1,y1), (t2,y2), (t3,y3), ... (tn,yn) ]
-%   p  - intervals
+%   dp - input data Points [ (t1,y1), (t2,y2), (t3,y3), ... (tn,yn) ]
 
 
-    npoints = length(dp); % number of data inputs
-    int = npoints-1;    
-    size = int*4;
+    nPoints = length(dp); % number of data inputs
+    ints = nPoints-1;    
+    size = ints*4;
     A = zeros(size);
     b = zeros(size,1);
-    
+   
+    % cubic equations
     j1 = 1;
-    jpp = int*4;
+    jpp = ints*4;
     jn = 4;
     i1 = 1;
-    in = int*2;
+    in = ints*2;
     dpi = 1;
     offset=0;
     
-    % cubic equations
     for i=i1:2:in
         if ((jn+offset-1)<= size) 
             j1 = j1+offset;
@@ -41,16 +40,16 @@ function [full] = natural_cs(dp)
         dpi=dpi+1;
         offset=4;
     end
-    
-    j1 = 1;
-    jpp = int*4;
-    jn = 8;
-    i1 = in+1;
-    newin = in + npoints-2; % middle points
-    dpi = 1;
-    offset=0;
 
     % first derivatives
+    j1 = 1;
+    jpp = ints*4;
+    jn = 8;
+    i1 = in+1;
+    newin = in + nPoints-2; % middle Points
+    dpi = 1;
+    offset=0;
+    
     for i=i1:1:newin
         if ((jn+offset-1)<= size) 
             dpi=dpi+1;
@@ -70,15 +69,15 @@ function [full] = natural_cs(dp)
         offset=4;
     end
     
+    % second derivatives
     j1 = 1;
-    jpp = int*4;
+    jpp = ints*4;
     jn = 8;
     i1 = newin+1;
-    in = newin + npoints-2;
+    in = newin + nPoints-2;
     dpi = 1;
     offset=0;
-
-    % second derivatives
+    
     for i=i1:1:in
         if ((jn+offset-1)<= size) 
             dpi=dpi+1;
@@ -95,27 +94,37 @@ function [full] = natural_cs(dp)
         end
         offset=4;
     end
+
+    % end Points (natural spline part)
     
     j1 = 1;
-    jpp = int*4;
     jn = size;
     i1 = in+1;
-    in = size;
-    dpi = 1;
+    
+    A(i1,j1+2)= 2;
+    A(i1,j1+3)= 6*dp(1,1);
+
+    A(i1+1,jn-1)= 2;
+    A(i1+1,jn)= 6*dp(nPoints,1);
+  
+    vec = GEPP(A,b);
+    
+    syms t;
+    full_vec = sym('full_vec',[ints 1]);
+    i1=1;
+    in=4;
     offset=0;
-
-    % end points (natural spline part)
-
-        A(i1,j1+2)= 2;
-        A(i1,j1+3)= 6*dp(1,1);
-
-        A(i1+1,jn-1)= 2;
-        A(i1+1,jn)= 6*dp(npoints,1);
     
-    
-A
-dp
-
+    for n=1:ints;
+        if ((in+4)<= size) 
+            i1 = i1+offset;
+            in = in+offset;
+        end
+        for i=i1:4:in
+            full_vec(n) = vec(i) + vec(i+1)*t + vec(i+2)*t^2 + vec(i+3)*t^3;
+        end
+        offset=4;
+    end
 end
     
 
