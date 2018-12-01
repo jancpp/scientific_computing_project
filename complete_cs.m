@@ -1,5 +1,5 @@
-function [full_vec] = natural_cs(dp)
-% NATURAL_CS Natural cubic spline
+function [full_vec] = complete_cs(dp)
+% COMPLETE_CS Complete cubic spline
 %   dp - input data Points [ (t1,y1), (t2,y2), (t3,y3), ... (tn,yn) ]
 
 
@@ -101,12 +101,16 @@ function [full_vec] = natural_cs(dp)
     jn = size;
     i1 = in+1;
     
-    A(i1,j1+2)= 2;
-    A(i1,j1+3)= 6*dp(1,1);
+    A(i1,j1+1)= 1;
+    A(i1,j1+2)= 2*dp(1,1);
+    A(i1,j1+3)= 3*dp(1,1)^2;
+    b(i1,1) = dp(1,2);
 
-    A(i1+1,jn-1)= 2;
-    A(i1+1,jn)= 6*dp(nPoints,1);
- 
+    A(i1+1,jn-2)= 1;
+    A(i1+1,jn-1)= 2*dp(nPoints,1);
+    A(i1+1,jn)  = 3*dp(nPoints,1)^2;
+    b(i1+1,1) = dp(nPoints,2);
+    
     vec = GEPP(A,b);
     
     syms t;
@@ -127,4 +131,5 @@ function [full_vec] = natural_cs(dp)
     end
 end
     
+
 
