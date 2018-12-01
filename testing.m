@@ -179,8 +179,12 @@ for i=1:5
     ydp1 = dp1(i,2);
     plot(xdp1,ydp1,'ro'); % data points
 end
-% CSf = CS(dp1(:,1), dp1(:,2)); 
-% fplot(CSf, [0.6 1]) % function
+
+natural_cs_vec1 =  natural_cs(dp1);
+for i=1:4
+    fplot(natural_cs_vec1(i), [dp1(i,1),dp1(i+1,1)]); % functions
+    hold on;
+end
 
 
 % data point set #2
@@ -193,8 +197,11 @@ for i=1:15
     ydp2 = dp2(i,2);
     plot(xdp2,ydp2,'ro'); % data points
 end
-% CSf = CS(dp2(:,1), dp2(:,2)); 
-% fplot(CSf, [-1 1]) % function
+natural_cs_vec2 =  natural_cs(dp2);
+for i=1:14
+    fplot(natural_cs_vec2(i), [dp2(i,1),dp2(i+1,1)]); % functions
+    hold on;
+end
 
 
 % data point set #3
@@ -208,8 +215,11 @@ for i=1:1:10
     plot(xdp3,ydp3,'ro'); % data points
 end
 
-% CSf = CS(dp3(:,1), dp3(:,2)); 
-% fplot(CSf, [1994 2003]) % function
+natural_cs_vec3 =  natural_cs(dp3);
+for i=1:1:9
+    fplot(natural_cs_vec3(i), [dp3(i,1),dp3(i+1,1)]); % functions
+    hold on;
+end
 
 
 % ========================
