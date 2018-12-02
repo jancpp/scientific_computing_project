@@ -324,4 +324,52 @@ end
 % CSf = CS(dp3(:,1), dp3(:,2)); 
 % fplot(CSf, [1994 2003]) % function
 
+% ===========================
+% Pt 3: Weather Application
+% ===========================
 
+% Daily highs for first 101 days on 2018
+jan = [ 9.0 21.9 26.1 26.1 28.9 37.9 37.9 48.0 43.0 53.1 28.9 18.0 18.0 33.1 14.0 10.0 24.1 39.0 46.0 51.1 62.1 37.0 35.1 51.1 64.9 57.0 55.0 39.0 30.0 48.9 50.0 ];
+feb = [ 28.9 37.0 48.0 21.9 21.9 19.0 28.9 54.0 28.9 19.9 32.0 36.0 48.0 60.1 63.0 36.0 54.0 62.1 64.0 28.9 25.0 32.0 33.1 37.9 48.9 60.1 66.9 57.0];
+mar = [ 53.1 57.9 66.9 64.0 54.0 37.9 43.0 45.0 61.0 57.0 41.0 51.1 51.1 64.0 73.9 64.9 44.1 53.1 46.0 44.1 54.0 68.0 62.1 48.0 50.0 57.90 57.9 57.9 43.0 57.0 60.1];
+april = [ 28.0 36.0 39.9 45.0 68.0 43.0 43.0 36.0 46.9 62.1 80.1];
+temps = [jan, feb, mar, april];
+
+% 21 point Newton polynomial through every 5th point
+% Create every 5th point data set
+xdp4=0:5:100
+ydp4=zeros(1,20);
+j = 1;
+for i=1:5:101
+    ydp4(j) = temps(i);
+    j=j+1;
+end
+
+% Using 21 point Newton Polynomial
+hold on;
+title('Weather using Newton');
+xfull = 1:1:101;
+for i=1:1:101
+    x = xfull(i);
+    y = temps(i);
+    plot(x,y,'ro'); % data points
+end
+newton_polynomial4 = newton_polynomial(xdp4, ydp4); 
+fplot(newton_polynomial4, [0 101]) % function
+
+% Using 21 point Natural Cubic Spline
+dp4 = [xdp4',ydp4'];
+hold on;
+title('Weather using Natural Cubic Spline');
+xfull = 1:1:101;
+for i=1:1:101
+    x = xfull(i);
+    y = temps(i);
+    plot(x,y,'ro'); % data points
+end
+natural_cs_vec4 =  natural_cs(dp4);
+dp4(1,1)
+for i=1:1:21
+    fplot(natural_cs_vec4(i), [dp4(i,1),dp4(i+1,1)]); % functions
+    hold on;
+end
