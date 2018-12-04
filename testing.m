@@ -337,7 +337,7 @@ temps = [ jan, feb, mar, april];
 
 % 21 point Newton polynomial through every 5th point
 % Create every 5th point data set
-xdp4=0:5:100
+xdp4=0:5:100;
 ydp4=zeros(1,20);
 j = 1;
 for i=1:5:101
@@ -356,6 +356,20 @@ for i=1:1:101
 end
 newton_polynomial4 = newton_polynomial(xdp4, ydp4); 
 fplot(newton_polynomial4, [0 101]) % function
+% Max Interpolation Error
+syms t;
+biggest = 0
+for i=1:1:101
+    int = subs(newton_polynomial4,t,i);
+    int = double(int);
+    real = temps(i);
+    new = abs(int - real);
+    if new > biggest
+        biggest = new;
+    end
+end
+biggest
+
 
 % Using 21 point Natural Cubic Spline
 dp4 = [xdp4',ydp4'];
@@ -368,10 +382,28 @@ for i=1:1:101
     plot(x,y,'ro'); % data points
 end
 natural_cs_vec4 =  natural_cs(dp4);
-for i=1:1:21
+for i=1:1:20
     fplot(natural_cs_vec4(i), [dp4(i,1),dp4(i+1,1)]); % functions
     hold on;
 end
+% Max Interpolation Error
+syms t;
+biggest = 0;
+interval_count = 1;
+for i=1:1:101
+    int = subs(natural_cs_vec4(interval_count),t,i);
+    int = double(int); 
+    real = temps(i);
+    new = abs(int - real);
+    if new > biggest
+        biggest = new;
+    end
+    if rem(i,5) == 0 & i<100
+        interval_count = interval_count+1;
+    end
+    
+end
+biggest
 
 % Max daily rainfall for first 101 days of 2018
 jan_rain = [0 0 0 0 0 0.01 0.03 0 0.02 0.15 0.23 0 0.40 1.03 0 0 0 0 0 0 0.10 0.10 0 0 0 0 0 0 0 0 0];
@@ -399,6 +431,20 @@ for i=1:1:101
 end
 newton_polynomial5 = newton_polynomial(xdp5, ydp5); 
 fplot(newton_polynomial5, [0 101]) % function
+% Max Interpolation Error
+syms t;
+biggest = 0;
+for i=1:1:101
+    int = subs(newton_polynomial5,t,i);
+    int = double(int);
+    real = rains(i);
+    new = abs(int - real);
+    if new > biggest
+        biggest = new;
+    end
+end
+biggest
+
 
 % Using 21 point Natural Cubic Spline
 dp5 = [xdp5',ydp5'];
@@ -410,8 +456,26 @@ for i=1:1:101
     y = rains(i);
     plot(x,y,'ro'); % data points
 end
-natural_cs_vec4 =  natural_cs(dp5);
-for i=1:1:21
-    fplot(natural_cs_vec4(i), [dp5(i,1),dp5(i+1,1)]); % functions
+natural_cs_vec5 =  natural_cs(dp5);
+for i=1:1:20
+    fplot(natural_cs_vec5(i), [dp5(i,1),dp5(i+1,1)]); % functions
     hold on;
 end
+% Max Interpolation Error
+syms t;
+biggest = 0;
+interval_count = 1;
+for i=1:1:101
+    int = subs(natural_cs_vec5(interval_count),t,i);
+    int = double(int);
+    real = rains(i);
+    new = abs(int - real);
+    if new > biggest
+        biggest = new;
+    end
+    if rem(i,5) == 0 & i<100
+        interval_count = interval_count+1;
+    end
+    
+end
+biggest
