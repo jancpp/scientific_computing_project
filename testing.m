@@ -1,8 +1,10 @@
 clear;
 clc;
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% data point set #1: 
+% f(x)=exp(x^2), on [0.6,1], 5 equally-spaced points
 
-% data point set #1: f(x)=exp(x^2), on [0.6,1], 5 equally-spaced points
-
+figure
 f1 = @(x) exp(x^2);
 space = abs(1-0.6)/4;
 dp1 = zeros(5,2);
@@ -11,9 +13,12 @@ for x1=1:5
     dp1(x1,2) = f1(dp1(x1,1));
 end
 
-subplot(2,3,1);
+% Vandermonde polynomial 
+subplot(3,2,1);
 hold on;
 title('Vandermonde #1');
+xlabel('0.6 < x < 1.0');
+ylabel('f(x)'); 
 for i=1:5
     xdp1 = dp1(i,1);
     ydp1 = dp1(i,2);
@@ -21,9 +26,12 @@ for i=1:5
 end
 fplot(vandermonde(dp1), [0.6 1]) % function
 
-subplot(2,3,2);
+% Newton polynomial 
+subplot(3,2,2);
 hold on;
 title('Newton #1');
+xlabel('0.6 < x < 1.0');
+ylabel('f(x)'); 
 for i=1:5
     xdp1 = dp1(i,1);
     ydp1 = dp1(i,2);
@@ -32,9 +40,12 @@ end
 newton_polynomial1 = newton_polynomial(dp1(:,1), dp1(:,2)); 
 fplot(newton_polynomial1, [0.6 1]) % function
 
-subplot(2,3,3);
+% Lagrange polynomial 
+subplot(3,2,3);
 hold on;
 title('Lagrange #1');
+xlabel('0.6 < x < 1.0');
+ylabel('f(x)'); 
 for i=1:5
     xdp1 = dp1(i,1);
     ydp1 = dp1(i,2);
@@ -43,23 +54,30 @@ end
 lagrange_polynomial1 = lagrange(dp1(:,1), dp1(:,2)); 
 fplot(lagrange_polynomial1, [0.6 1]) % function
 
-subplot(2,3,4);
+% Natural cubic spline
+subplot(3,2,4);
 hold on;
 title('Natural CS #1');
+xlabel('0.6 < x < 1.0');
+ylabel('f(x)'); 
 for i=1:5
     xdp1 = dp1(i,1);
     ydp1 = dp1(i,2);
     plot(xdp1,ydp1,'ro'); % data points
 end
+
 natural_cs_vec1 =  natural_cs(dp1);
 for i=1:4
     fplot(natural_cs_vec1(i), [dp1(i,1),dp1(i+1,1)]); % functions
     hold on;
 end
 
-subplot(2,3,5);
+% Complete cubic spline
+subplot(3,2,5);
 hold on;
 title('Complete CS #1');
+xlabel('0.6 < x < 1.0');
+ylabel('f(x)'); 
 for i=1:5
     xdp1 = dp1(i,1);
     ydp1 = dp1(i,2);
@@ -71,20 +89,29 @@ for i=1:4
     hold on;
 end
 
-subplot(2,3,6);
+% Not-a-knot cubic spline
+subplot(3,2,6);
 hold on;
 title('Not-a-knot CS #1');
+xlabel('0.6 < x < 1.0');
+ylabel('f(x)'); 
 for i=1:5
     xdp1 = dp1(i,1);
     ydp1 = dp1(i,2);
     plot(xdp1,ydp1,'ro'); % data points
 end
-% CSf = CS(dp1(:,1), dp1(:,2)); 
-% fplot(CSf, [0.6 1]) % function
+not_a_knot_cs_vec1 = not_a_knot_cs(dp1);
+for i=1:4
+    fplot(not_a_knot_cs_vec1(i), [dp1(i,1),dp1(i+1,1)]); % functions
+    hold on;
+end
+hold off;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% data point set #2 f(x)=1/(1 + (12 * x^2)), on [-1,1], 15 equally-spaced points
+% data point set #2:
+% f(x)=1/(1 + (12 * x^2)), on [-1,1], 15 equally-spaced points
 
+figure
 f2 = @(x) 1/(1 + (12 * x^2));
 space = abs(-1-1)/14;
 dp2 = zeros(15,2);
@@ -93,9 +120,12 @@ for x2=1:15
     dp2(x2,2) = f2(dp2(x2,1));
 end
 
-subplot(2,3,1);
+% Vandermonde polynomial 
+subplot(3,2,1);
 hold on;
 title('Vandermonde #2');
+xlabel('-1.0 < x < 1.0');
+ylabel('f(x)'); 
 for i=1:15
     xdp2 = dp2(i,1);
     ydp2 = dp2(i,2);
@@ -103,9 +133,13 @@ for i=1:15
 end
 fplot(vandermonde(dp2), [-1 1]) % function
 
-subplot(2,3,2);
+
+% Newton polynomial 
+subplot(3,2,2);
 hold on;
 title('Newton #2');
+xlabel('-1.0 < x < 1.0');
+ylabel('f(x)'); 
 for i=1:15
     xdp2 = dp2(i,1);
     ydp2 = dp2(i,2);
@@ -114,9 +148,12 @@ end
 newton_polynomial2 = newton_polynomial(dp2(:,1), dp2(:,2)); 
 fplot(newton_polynomial2, [-1 1]) % function
 
-subplot(2,3,3);
+% Lagrange polynomial 
+subplot(3,2,3);
 hold on;
 title('Lagrange #2');
+xlabel('-1.0 < x < 1.0');
+ylabel('f(x)'); 
 for i=1:15
     xdp2 = dp2(i,1);
     ydp2 = dp2(i,2);
@@ -125,9 +162,12 @@ end
 lagrange_polynomial2 = lagrange(dp2(:,1), dp2(:,2)); 
 fplot(lagrange_polynomial2, [-1 1]) % function
 
-subplot(2,3,4);
+% Natural cubic spline
+subplot(3,2,4);
 hold on;
 title('Natural CS #2');
+xlabel('-1.0 < x < 1.0');
+ylabel('f(x)'); 
 for i=1:15
     xdp2 = dp2(i,1);
     ydp2 = dp2(i,2);
@@ -139,9 +179,12 @@ for i=1:14
     hold on;
 end
 
-subplot(2,3,5);
+% Complete cubic spline
+subplot(3,2,5);
 hold on;
 title('Complete CS #2');
+xlabel('-1.0 < x < 1.0');
+ylabel('f(x)'); 
 for i=1:15
     xdp2 = dp2(i,1);
     ydp2 = dp2(i,2);
@@ -153,97 +196,136 @@ for i=1:14
     hold on;
 end
 
-subplot(2,3,6);
+% Not-a-knot cubic spline
+subplot(3,2,6);
 hold on;
 title('Not-a-knot CS #2');
+xlabel('-1.0 < x < 1.0');
+ylabel('f(x)'); 
 for i=1:15
     xdp2 = dp2(i,1);
     ydp2 = dp2(i,2);
     plot(xdp2,ydp2,'ro'); % data points
 end
-% CSf = CS(dp2(:,1), dp2(:,2)); 
-% fplot(CSf, [-1 1]) % function
+not_a_knot_cs_vec2 = not_a_knot_cs(dp2);
+for i=1:14
+    fplot(not_a_knot_cs_vec2(i), [dp2(i,1),dp2(i+1,1)]); % functions
+    hold on;
+end
+hold off;
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % data point set #3
+
+figure
 dp3 = [ 1994 67.052; 1995 68.008; 
         1996 69.803; 1997 72.024; 
         1998 73.400; 1999 72.063; 
         2000 74.669; 2001 74.487; 
         2002 74.065; 2003 76.777 ];
-    
-subplot(2,3,1);
+
+% Vandermonde polynomial 
+subplot(3,2,1);
 hold on;
 title('Vandermonde #3');
+xlabel('1994 < x < 2003');
+ylabel('f(x)'); 
 for i=1:1:10
     xdp3 = dp3(i,1);
     ydp3 = dp3(i,2);
     plot(xdp3,ydp3,'ro'); % data points
 end
-fplot(vandermonde(dp3), [1994 2003]) % function
+syms t;
+a=linspace(1994,2003,100);
+fun(t) = vandermonde(dp3); 
+plot(a,fun(a)) % function
 
-subplot(2,3,2);
+% Newton polynomial
+subplot(3,2,2);
 hold on;
 title('Newton #3');
+xlabel('1994 < x < 2003');
+ylabel('f(x)'); 
 for i=1:1:10
     xdp3 = dp3(i,1);
     ydp3 = dp3(i,2);
     plot(xdp3,ydp3,'ro'); % data points
 end
-newton_polynomial3 = newton_polynomial(dp3(:,1), dp3(:,2)); 
-fplot(newton_polynomial3, [1994 2003]) % function
+syms t;
+a=linspace(1994,2003,100);
+fun(t) = newton_polynomial(dp3(:,1), dp3(:,2)); 
+plot(a,fun(a)) % function
 
-subplot(2,3,3);
+% Lagrange polynomial 
+subplot(3,2,3);
 hold on;
 title('Lagrange #3');
+xlabel('1994 < x < 2003');
+ylabel('f(x)'); 
 for i=1:1:10
     xdp3 = dp3(i,1);
     ydp3 = dp3(i,2);
     plot(xdp3,ydp3,'ro'); % data points
 end
-lagrange_polynomial3 = lagrange(dp3(:,1), dp3(:,2)); 
-fplot(lagrange_polynomial3, [1994 2003]) % function
+syms t;
+a=linspace(1994,2003,100);
+fun(t) = lagrange(dp3(:,1), dp3(:,2));
+plot(a,fun(a)) % function
 
-subplot(2,3,4);
+% Natural cubic spline
+subplot(3,2,4);
 hold on;
 title('Natural CS #3');
+xlabel('1994 < x < 2003');
+ylabel('f(x)'); 
 for i=1:1:10
     xdp3 = dp3(i,1);
     ydp3 = dp3(i,2);
     plot(xdp3,ydp3,'ro'); % data points
 end
+
 natural_cs_vec3 =  natural_cs(dp3);
 for i=1:1:9
     fplot(natural_cs_vec3(i), [dp3(i,1),dp3(i+1,1)]); % functions
     hold on;
 end
 
-subplot(2,3,5);
+% Complete cubic spline
+subplot(3,2,5);
 hold on;
 title('Complete CS #3');
+xlabel('1994 < x < 2003');
+ylabel('f(x)'); 
 for i=1:1:10
     xdp3 = dp3(i,1);
     ydp3 = dp3(i,2);
     plot(xdp3,ydp3,'ro'); % data points
 end
+
 complete_cs_vec3 =  complete_cs(dp3);
 for i=1:1:9
     fplot(complete_cs_vec3(i), [dp3(i,1),dp3(i+1,1)]); % functions
     hold on;
 end
 
-subplot(2,3,6);
+
+% Not-a-knot cubic spline
+subplot(3,2,6);
 hold on;
 title('Not-a-knot CS #3');
+xlabel('1994 < x < 2003');
+ylabel('f(x)'); 
 for i=1:1:10
     xdp3 = dp3(i,1);
     ydp3 = dp3(i,2);
     plot(xdp3,ydp3,'ro'); % data points
 end
-
-% CSf = CS(dp3(:,1), dp3(:,2)); 
-% fplot(CSf, [1994 2003]) % function
-
+not_a_knot_cs_vec3 = not_a_knot_cs(dp3);
+for i=1:9
+    fplot(not_a_knot_cs_vec3(i), [dp3(i,1),dp3(i+1,1)]); % functions
+    hold on;
+end
+hold off;
 
 % ===========================
 % Pt 3: Weather Application
@@ -267,8 +349,12 @@ for i=1:5:101
 end
 
 % Using 21 point Newton Polynomial
+figure
+subplot(2,2,1);
 hold on;
 title('Weather using Newton');
+xlabel('days');
+ylabel('temperature in F'); 
 xfull = 1:1:101;
 for i=1:1:101
     x = xfull(i);
@@ -294,8 +380,11 @@ biggest
 
 % Using 21 point Natural Cubic Spline
 dp4 = [xdp4',ydp4'];
+subplot(2,2,2);
 hold on;
 title('Weather using Natural Cubic Spline');
+xlabel('days');
+ylabel('temperature in F'); 
 xfull = 1:1:101;
 for i=1:1:101
     x = xfull(i);
@@ -343,8 +432,11 @@ for i=1:5:101
     j=j+1;
 end
 
+subplot(2,2,3);
 hold on;
 title('Rainfall using Newton');
+xlabel('days');
+ylabel('rainfall in inches'); 
 for i=1:1:101
     x = xfull(i);
     y = rains(i);
@@ -369,8 +461,11 @@ biggest
 
 % Using 21 point Natural Cubic Spline
 dp5 = [xdp5',ydp5'];
+subplot(2,2,4);
 hold on;
 title('Rainfall using Natural Cubic Spline');
+xlabel('days');
+ylabel('rainfall in inches'); 
 xfull = 1:1:101;
 for i=1:1:101
     x = xfull(i);

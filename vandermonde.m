@@ -1,8 +1,7 @@
-function [full] = vandermonde(dp)
-% interpol_vandermonde is a Vandermonde interpolation function 
-% that works for any number of input data points dp
-% dp  - input data points [ (t1,y1), (t2,y2), (t3,y3), ... (tn,yn) ]
-% x   - coeficients that plugs in the polynomial equation 
+function [polynomial] = vandermonde(dp)
+% Vandermonde interpolation function 
+% takes data points [ (t1,y1), (t2,y2), (t3,y3), ... (tn,yn) ]
+% returns vector with polymonial function in form
 % p(t) = x(1) + x(2)*t +...+ x(n)*t^(n-1)
 
     numOfPoints = length(dp); % number of data inputs
@@ -16,11 +15,11 @@ function [full] = vandermonde(dp)
         end
         y(row) = dp(row,2);
     end
-    
+    % solve using GEPP for efficency
     x = GEPP(A, y); 
-    full = 0;
+    polynomial = 0;
     for i=1:numOfPoints
-        full = full + x(i)*t^(i-1);
+        polynomial = polynomial + x(i)*t^(i-1);
     end
     
 end

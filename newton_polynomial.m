@@ -1,6 +1,8 @@
 function [polynomial] = newton(X,Y)
 % Newton Interpolation
-% Define Pi's and C's
+% takes data points
+% returns polynomial function in form
+% p(t) = x(1) + x(2)*t +...+ x(n)*t^(n-1)
 
 % Define general Pi equations
 num_points = length(X);
@@ -25,7 +27,7 @@ for i=1:num_points
     end
 end
 
-% Solve system Ac=Y for coefficients using backsub.. later lol
+% Solve system Ac=Y for coefficients using backsubstitution
 C = forward_substitution(A,Y);
 
 % Construct final polynomial
